@@ -1,0 +1,35 @@
+version: 1.0.{build}
+
+image: Visual Studio 2019
+
+environment:
+  MAVEN_HOME: C:\maven\apache-maven-3.3.9
+  PATH: C:\maven\apache-maven-3.3.9\bin;$(JAVA_HOME)\bin;$(PATH)
+  MAVEN_OPTS: -Xmx4g
+  JAVA_OPTS: -Xmx4g
+  M2: $(USERPROFILE)\.m2
+
+install:
+
+  # Install Maven if not present
+  - ps: |
+      Add-Type -AssemblyName System.IO.Compression.FileSystem
+      if (!(Test-Path -Path "C:\maven" )) {
+        (new-object System.Net.WebClient).DownloadFile(
+          'https://dlcdn.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.zip',
+          'C:\maven-bin.zip'
+        )
+        [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\maven-bin.zip", "C:\maven")
+
+      }
+
+build_script:
+  - mvn clean install
+
+test: off
+# Maven run the tests as part of the build we do not need to run them again
+
+cache:
+  # Cache Maven and m.2
+  - '%MAVEN_HOME%'
+  - '%M2%'
