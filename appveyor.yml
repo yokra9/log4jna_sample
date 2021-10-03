@@ -24,11 +24,13 @@ install:
 
       }
 
+# log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
+# https://github.com/java-native-access/jna/issues/384
 build_script:
-  - mvn clean install
+  - mvn -Djna.nosys=true clean install 
 
-test: off
 # Maven run the tests as part of the build we do not need to run them again
+test: off
 
 cache:
   # Cache Maven and m.2
