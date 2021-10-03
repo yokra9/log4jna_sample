@@ -2,13 +2,18 @@ package yokra9.log4jna_sample;
 
 public class App {
 
+    /**
+     * Demo to use log4jna
+     * @param args message to log
+     */
     public static void main(String[] args) {
-        String message = "";
 
-        for (String arg : args) {
-            message += arg;
-            message += " ";
+        StringBuilder b = new StringBuilder();
+        for (String str : args) {
+            b.append(str);
+            b.append(' ');
         }
+        String message = b.toString();
 
         Logging l = new Logging();
 
