@@ -1,9 +1,10 @@
-package yokra9.log4jna_sample;
+package com.github.yokra9.log4jna_sample;
 
 public class App {
 
     /**
      * Demo to use log4jna
+     * 
      * @param args message to log
      */
     public static void main(String[] args) {

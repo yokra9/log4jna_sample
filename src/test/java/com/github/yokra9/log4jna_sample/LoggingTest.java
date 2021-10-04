@@ -1,4 +1,4 @@
-package yokra9.log4jna_sample;
+package com.github.yokra9.log4jna_sample;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,12 +15,14 @@ public class LoggingTest {
 
     private Logging l = new Logging();
 
-    private static final String EVENT_SOURCE = "yokra9.log4jna_sample";
+    private static final String EVENT_SOURCE = "com.github.yokra9.log4jna_sample";
     private static final String THREAD = "main";
     private static final String LOGGER = "log4jna_sample.Logging";
 
     /**
-     * Check whether EventViewer has the expected record for a specific period of time.
+     * Check whether EventViewer has the expected record for a specific period of
+     * time.
+     * 
      * @param level
      * @param eventLogType
      * @param startedAt
@@ -53,7 +55,7 @@ public class LoggingTest {
                     assertEquals(message, eventMessage.toString());
                 }
             }
-            assertTrue(isfound,"Couldn't find record");
+            assertTrue(isfound, "Couldn't find record");
         } finally {
             iter.close();
         }

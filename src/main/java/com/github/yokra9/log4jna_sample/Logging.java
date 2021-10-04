@@ -1,4 +1,4 @@
-package yokra9.log4jna_sample;
+package com.github.yokra9.log4jna_sample;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

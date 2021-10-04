@@ -13,7 +13,7 @@
             </PatternLayout>
         </Console>
 
-        <Win32EventLog name="EventViewer-Appender" eventMessageFile="${dllfile}" categoryMessageFile="${dllfile}" source="yokra9.log4jna_sample" application="log4jna_sample">
+        <Win32EventLog name="EventViewer-Appender" eventMessageFile="${dllfile}" categoryMessageFile="${dllfile}" source="com.github.yokra9.log4jna_sample" application="log4jna_sample">
             <PatternLayout>
                 <pattern>
                     Thread: %thread%nLogger: %logger{2}%nMessage: %message%n
