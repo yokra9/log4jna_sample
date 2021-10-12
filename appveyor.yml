@@ -10,6 +10,9 @@ environment:
   JAVA_OPTS: -Xmx4g
   M2: $(USERPROFILE)\.m2
 
+  secret:
+    secure: zNgjsN45sSA5kGW/jo7TJA==
+
 install:
 
   # Install Maven if not present
@@ -23,6 +26,9 @@ install:
         [System.IO.Compression.ZipFile]::ExtractToDirectory("C:\maven-bin.zip", "C:\maven")
 
       }
+
+  - ps: |
+      Write-Host $env:secret
 
 # log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
 # https://github.com/java-native-access/jna/issues/384
