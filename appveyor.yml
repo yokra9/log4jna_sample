@@ -28,7 +28,9 @@ install:
       }
 
   - ps: |
-      Write-Host $env:secret
+      Write-Host validation
+      $env:secret -eq "test_keyphras"
+      Write-Host `$env:secret is $env:secret
 
 # log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
 # https://github.com/java-native-access/jna/issues/384
