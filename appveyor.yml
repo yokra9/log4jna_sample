@@ -32,7 +32,8 @@ install:
       $env:secret -eq "test_keyphrase"
       Write-Host `$env:secret is $env:secret
 
-  - \%JAVA_HOME%\bin\java -version
+  - | 
+      "%JAVA_HOME%\bin\java" -version
 
 # log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
 # https://github.com/java-native-access/jna/issues/384
