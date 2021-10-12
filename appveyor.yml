@@ -9,9 +9,17 @@ environment:
   MAVEN_OPTS: -Xmx4g
   JAVA_OPTS: -Xmx4g
   M2: $(USERPROFILE)\.m2
+  SECURE_FILE_DIR: C:\appveyor-tools
+  SECURE_FILE_CMD: C:\appveyor-tools\secure-file.exe
+  SECURE_FILE_DEC: '-decrypt'
+  SECURE_FILE_SEC: '-secret'
+  SECURE_FILE_SLT: '-salt'
+  TEST_ENC: $(APPVEYOR_BUILD_FOLDER)\README.md.enc
 
   secret:
     secure: zNgjsN45sSA5kGW/jo7TJA==
+  salt:
+    secure: 1NA4tAkyzsiZxCzZs398+YMNtVs1KARX9saQd0Kuk7vj9Myklo3bk0dpE2sY6M+IbBBlv4+svPMKPXeXExXeBA==
 
 install:
 
@@ -27,13 +35,27 @@ install:
 
       }
 
+  # Test decode
   - ps: |
       Write-Host validation
       $env:secret -eq "test_keyphrase"
       Write-Host `$env:secret is $env:secret
 
+  # Test Command from Env
   - | 
       "%JAVA_HOME%\bin\java" -version
+
+  # Install secure-file if not present
+  - ps: |
+     if (!(Test-Path -Path $env:SECURE_FILE_DIR )) {
+        cd C:\
+        iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+     }
+
+  # Test decode
+  - ps: |
+      & $env:SECURE_FILE_CMD $env:SECURE_FILE_DEC $env:TEST_ENC $env:SECURE_FILE_SEC $env:secret $env:SECURE_FILE_SLT $env:salt
+
 
 # log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
 # https://github.com/java-native-access/jna/issues/384
