@@ -29,7 +29,7 @@ install:
 
   - ps: |
       Write-Host validation
-      $env:secret -eq "test_keyphras"
+      $env:secret -eq "test_keyphrase"
       Write-Host `$env:secret is $env:secret
 
 # log4jna depends on JNA 4.x, so we must set jna.nosys=true to avoid java.lang.UnsatisfiedLinkError
