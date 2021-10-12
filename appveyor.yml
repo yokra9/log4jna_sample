@@ -35,6 +35,9 @@ install:
 
       }
 
+  - ps: |  
+      $env:secret = "dummy"
+
   # Test decode
   - ps: |
       Write-Host `$env:secret is $env:secret
