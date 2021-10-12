@@ -37,8 +37,6 @@ install:
 
   # Test decode
   - ps: |
-      Write-Host validation
-      $env:secret -eq "test_keyphrase"
       Write-Host `$env:secret is $env:secret
 
   # Test Command from Env
