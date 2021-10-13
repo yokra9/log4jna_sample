@@ -40,10 +40,6 @@ install:
   - ps: |
       Write-Host `$env:secret is $env:secret
 
-  # Test Command from Env
-  - | 
-      "%SECURE_FILE_CMD%"
-
   # Install secure-file if not present
   - ps: |
      if (!(Test-Path -Path $env:SECURE_FILE_DIR )) {
@@ -51,6 +47,10 @@ install:
         iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
         cd $env:APPVEYOR_BUILD_FOLDER
      }
+
+  # Test Command from Env
+  - | 
+      "%SECURE_FILE_CMD%"
 
   # Test decode
   - ps: |
