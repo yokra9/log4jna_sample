@@ -16,6 +16,7 @@ environment:
   SECURE_FILE_SLT: '-salt'
   TEST_ENC: $(APPVEYOR_BUILD_FOLDER)\test.md.enc
 
+  # Keyphrase for secure-file.exe
   secret:
     secure: zNgjsN45sSA5kGW/jo7TJA==
   salt:
@@ -35,16 +36,13 @@ install:
 
       }
 
-  - ps: |  
-      $env:secret = "dummy"
-
   # Test decode
   - ps: |
       Write-Host `$env:secret is $env:secret
 
   # Test Command from Env
   - | 
-      "%JAVA_HOME%\bin\java" -version
+      "%SECURE_FILE_CMD%"
 
   # Install secure-file if not present
   - ps: |
