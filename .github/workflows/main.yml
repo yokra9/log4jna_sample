@@ -1,0 +1,40 @@
+name: CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        java: [ '11' ,'17' ]
+        distribution: [ 'adopt', 'microsoft' ]
+        os: [ 'windows-2019' ]
+
+    runs-on: ${{ matrix.os }}
+    
+    name: Java ${{ matrix.java }} ( ${{ matrix.distribution }} ) on ${{ matrix.os }}
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # configuring Developer Command Prompt for Microsoft Visual C++
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      # Setup JDK
+      - uses: actions/setup-java@v2
+        with:
+          distribution: ${{ matrix.distribution }}
+          java-version: ${{ matrix.java }}
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} 
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - run: mvn clean install
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
